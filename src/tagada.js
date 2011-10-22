@@ -1,5 +1,5 @@
 /*
-    Noeud, the minimal CSS selector engine
+    Noeud, the extreme minimal CSS selector engine
 
     Version : 0.1.0a
     Author  : Aurélien Delogu (dev@dreamysource.fr)
@@ -53,7 +53,7 @@ noeud=function(selectors,context){
                     // Get elements by class
                     case '.':
                         elements=elements.concat(
-                            !nodes[j].getElementsByClassName?
+                            nodes[j].getElementsByClassName?
                             Array.prototype.slice.call(nodes[j].getElementsByClassName(pieces[2])):
                             getNodesByClassName(pieces[2],nodes[j])
                         );
