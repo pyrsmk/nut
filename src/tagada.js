@@ -1,5 +1,5 @@
 /*
-    Noeud, the extreme minimal CSS selector engine
+    tagada, the extreme minimal CSS selector engine
 
     Version : 0.1.0a
     Author  : Aurélien Delogu (dev@dreamysource.fr)
@@ -11,7 +11,7 @@
         [ ] unit testing
         [ ] benchmark against qwery
 */
-noeud=function(selectors,context){
+tagada=function(selectors,context){
     // Format
     if(!context){
         context=document;
