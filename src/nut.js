@@ -1,30 +1,28 @@
 /*
     nut, the concise CSS selector engine
 
-    Version : 0.1.1a
+    Version : 0.1.2
     Author  : Aurélien Delogu (dev@dreamysource.fr)
     URL     : https://github.com/pyrsmk/nut
     License : MIT
 
     TODO
         [ ] cache
-        [/] unit testing
         [ ] benchmark against qwery
         [/] lint
 */
 this.nut=function(selectors,context){
-    // Format
-    if(!context){
-        context=[this.document];
-    }
-    if(!(context instanceof Array)){
-        context=[context];
-    }
-    // No selectors? Goodbye!
-    if(!selectors){
+    // No selectors or contains forbidden chars
+    if(selectors.match(/^(\s*[#.]?\w+\s*)+$/)===null){
         return [];
     }
     // Init
+    if(!context){
+        context=[this.document];
+    }
+    if(context.length===undefined){
+        context=[context];
+    }
     var nodes;
     // Define a replacement getElementsByClassName function for IE<9
     var getNodesByClassName=function(name,context){
@@ -48,44 +46,46 @@ this.nut=function(selectors,context){
     // Browse context
     for(var i in context){
         // Try querySelectorAll method
-        if(context[i].querySelectorAll && selectors.match(/^(\s*[#.]?\w+\s*)+$/)){
+        /*if(context[i].querySelectorAll){
             return context[i].querySelectorAll(selectors);
-        }
+        }*/
         // Set context
         nodes=[context[i]];
         // Browse selectors
         selectors=selectors.split(/\s+/);
         for(var j in selectors){
             // Split selector
-            var elements=[];
-            var tokens=selectors[j].match(/^([#.])?(.+)/);
+            var elements=[],
+                nodelist,
+                tokens=selectors[j].match(/^([#.])?(.+)/);
             // No tokens? Goodbye!
             if(!tokens){
                 return [];
             }
-            // Apply current selector to all context
+            // Apply current selector to all current nodes
             for(var k in nodes){
-                if(typeof nodes[k]=='object'){
-                    switch(tokens[1]){
-                        // Get elements by class
-                        case '.':
-                            elements=elements.concat(
-                                nodes[k].getElementsByClassName?
-                                nodes[k].getElementsByClassName(tokens[2]):
-                                getNodesByClassName(tokens[2],nodes[k])
-                            );
-                            break;
-                        // Get elements by id
-                        case '#':
-                            elements=elements.concat([this.document.getElementById(tokens[2])]);
-                            break;
-                        // Get elements by tag
-                        default:
-                            elements=elements.concat(nodes[k].getElementsByTagName(tokens[2]));
-                    }
+                switch(tokens[1]){
+                    // Get elements by class
+                    case '.':
+                        nodelist=nodes[k].getElementsByClassName?
+                                 nodes[k].getElementsByClassName(tokens[2]):
+                                 getNodesByClassName(tokens[2],nodes[k]);
+                        break;
+                    // Get elements by id
+                    case '#':
+                        nodelist=[this.document.getElementById(tokens[2])];
+                        break;
+                    // Get elements by tag
+                    default:
+                        nodelist=nodes[k].getElementsByTagName(tokens[2]);
+                }
+                // Append new elements
+                var m=nodelist.length;
+                for(var l=0;l<m;++l){
+                    elements.push(nodelist[l]);
                 }
             }
-            // Add the new node ones
+            // Update nodes
             nodes=elements;
         }
     }

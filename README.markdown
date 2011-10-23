@@ -1,5 +1,5 @@
-Nut 0.1.1a
-==========
+Nut 0.1.2
+=========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries. These queries only accept ids, classes and tags with optional hierarchy.
 
