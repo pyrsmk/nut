@@ -1,0 +1,35 @@
+nut
+===
+
+Nut is a concise query selector engine that just allows you to do extremely simple queries. These queries only accept ids, classes and tags with optional hierarchy.
+
+Here's it can handle:
+
+    #foo
+    section
+    .bar p
+    section #foo .bar p
+
+And here's it can't:
+
+    div#foo div.bar
+    div#foo.bar
+    div *
+    div > p
+    div + p
+
+So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. Nut is __just__ a extreme minimal library that aims to be very light and quick, based on the observation that most selectors could be succinct (as javascript itself can handle a lot of things).
+
+But, let's dig in:
+
+    // Return an array
+    nut('#foo');
+
+Of course, queries can have a context:
+
+    // Get the context node
+    node=nut('#foo')[0];
+    // Get nodes from that context
+    nut('.bar p',node);
+
+And that's all you need to know ;)
