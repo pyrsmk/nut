@@ -1,17 +1,18 @@
 /*
-    tagada, the extreme minimal CSS selector engine
+    nut, the extreme minimal CSS selector engine
 
     Version : 0.1.0a
     Author  : Aurélien Delogu (dev@dreamysource.fr)
-    URL     : https://github.com/pyrsmk/noeud
+    URL     : https://github.com/pyrsmk/nut
     License : MIT
 
     TODO
         [ ] cache
         [ ] unit testing
         [ ] benchmark against qwery
+        [/] querySelectorAll
 */
-tagada=function(selectors,context){
+nut=function(selectors,context){
     // Format
     if(!context){
         context=document;
@@ -19,6 +20,10 @@ tagada=function(selectors,context){
     // No selectors? Goodbye!
     if(!selectors){
         return new Array;
+    }
+    // Try querySelectorAll method
+    if(context.querySelectorAll && selectors.match(/[#.\w\s]/)){
+        return Array.prototype.slice.call(context.querySelectorAll(selectors));
     }
     // Init vars
     var nodes=new Array(context),
@@ -38,33 +43,36 @@ tagada=function(selectors,context){
                 nodes=nodes.concat(getNodesByClassName(name,context.childNodes[i]));
             }
             return nodes;
-        },
-        pieces,
-        elements;
+        };
     // Browse selectors
     selectors=selectors.split(/\s+/);
     for(var i in selectors){
-        // Get nodes for that selector
-        pieces=selectors[i].match(/^([#.])?(.*)/);
-        elements=new Array();
+        // Split selector
+        var elements=new Array;
+        var tokens=selectors[i].match(/^([#.])?(.+)/);
+        // No tokens? Goodbye!
+        if(!tokens){
+            return new Array;
+        }
+        // Apply current selector to all context
         for(var j in nodes){
             if(typeof nodes[j]=='object'){
-                switch(pieces[1]){
+                switch(tokens[1]){
                     // Get elements by class
                     case '.':
                         elements=elements.concat(
                             nodes[j].getElementsByClassName?
-                            Array.prototype.slice.call(nodes[j].getElementsByClassName(pieces[2])):
-                            getNodesByClassName(pieces[2],nodes[j])
+                            Array.prototype.slice.call(nodes[j].getElementsByClassName(tokens[2])):
+                            getNodesByClassName(tokens[2],nodes[j])
                         );
                         break;
                     // Get elements by id
                     case '#':
-                        elements=elements.concat(new Array(document.getElementById(pieces[2])));
+                        elements=elements.concat(new Array(document.getElementById(tokens[2])));
                         break;
                     // Get elements by tag
                     default:
-                        elements=elements.concat(Array.prototype.slice.call(nodes[j].getElementsByTagName(pieces[2])));
+                        elements=elements.concat(Array.prototype.slice.call(nodes[j].getElementsByTagName(tokens[2])));
                 }
             }
         }

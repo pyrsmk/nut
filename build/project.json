@@ -1,6 +1,6 @@
 {
     "JAVASCRIPT":{
-        "tagada"    : ["../src/tagada.js"]
+        "tagada"    : ["../src/nut.js"]
     },
     "JSHINT_OPTS":{
         "boss"          : true,
