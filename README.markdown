@@ -1,5 +1,5 @@
-nut 0.1.0
-=========
+Nut 0.1.1a
+==========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries. These queries only accept ids, classes and tags with optional hierarchy.
 
@@ -27,9 +27,7 @@ But, let's dig in:
 
 Of course, queries can have a context:
 
-    // Get the context node
-    node=nut('#foo')[0];
-    // Get nodes from that context
-    nut('.bar p',node);
+    // Get nodes from the #foo context
+    nut('.bar p',nut('#foo'));
 
 And that's all you need to know ;)

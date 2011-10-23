@@ -1,0 +1,12 @@
+{
+    "JAVASCRIPT":{
+        "unit":["../unit/runner.js"]
+    },
+    "JSHINT_OPTS":{
+        "boss"          : true,
+        "curly"         : true,
+        "eqnull"        : true,
+        "newcap"        : true,
+        "indent"        : 4
+    }
+}
