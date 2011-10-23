@@ -1,5 +1,5 @@
-nut
-===
+nut 0.1.0
+=========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries. These queries only accept ids, classes and tags with optional hierarchy.
 
@@ -18,7 +18,7 @@ And here's it can't:
     div > p
     div + p
 
-So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. Nut is __just__ a extreme minimal library that aims to be very light and quick, based on the observation that most selectors could be succinct (as javascript itself can handle a lot of things).
+So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. Nut is __just__ an extreme minimal library that aims to be very light and quick, based on the observation that most selectors could be succinct (as javascript itself can handle a lot of things). It __doesn't__ replace a complete selector engine like [Sizzle](https://github.com/jquery/sizzle) or [qwery](https://github.com/ded/qwery).
 
 But, let's dig in:
 
