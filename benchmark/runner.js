@@ -1,25 +1,25 @@
 domReady(function(){
 
-    var suite=new Benchmark.Suite;
+    var suite=new Benchmark.Suite();
 
     // p
-    suite.add('[querySelectorAll] p',function(){
+    suite.add('[querySelectorAll: p]',function(){
         document.querySelectorAll('p');
     })
-    .add('[nut] p',function(){
+    .add('[nut: p]',function(){
         nut('p');
     })
 
     // #foo
-    .add('[querySelectorAll] #foo',function(){
+    .add('[querySelectorAll: #foo]',function(){
         document.querySelectorAll('#foo');
     })
-    .add('[nut] #foo',function(){
+    .add('[nut: #foo]',function(){
         nut('#foo');
     })
 
     // .bar from #foo context
-    .add('[querySelectorAll] .bar from #foo context',function(){
+    .add('[querySelectorAll: .bar from #foo context]',function(){
         var foo=document.querySelectorAll('#foo'),
             nodes=[],
             bar,i,
@@ -33,16 +33,24 @@ domReady(function(){
             }
         }
     })
-    .add('[nut] .bar from #foo context',function(){
+    .add('[nut: .bar from #foo context]',function(){
         nut('.bar',nut('#foo'));
     })
 
     // #foo .bar span
-    .add('[querySelectorAll] #foo .bar span',function(){
+    .add('[querySelectorAll: #foo .bar span]',function(){
         document.querySelectorAll('#foo .bar span');
     })
-    .add('[nut] #foo .bar span',function(){
+    .add('[nut: #foo .bar span]',function(){
         nut('#foo .bar span');
+    })
+
+    // #foo span,table tr
+    .add('[querySelectorAll: #foo span,table tr]',function(){
+        document.querySelectorAll('#foo span,table tr');
+    })
+    .add('[nut: #foo span,table tr]',function(){
+        nut('#foo span,table tr');
     })
 
     // Display results
