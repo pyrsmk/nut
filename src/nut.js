@@ -1,36 +1,112 @@
 /*
     nut, the concise CSS selector engine
 
-    Version : 0.1.2
+    Version : 0.1.3
     Author  : Aurélien Delogu (dev@dreamysource.fr)
     URL     : https://github.com/pyrsmk/nut
     License : MIT
 
     TODO
-        [ ] cache
-        [ ] benchmark against qwery
         [/] lint
+        [ ] #foo,div syntax
 */
-this.nut=function(selectors,context){
-    // No selectors or contains forbidden chars
-    if(selectors.match(/^(\s*[#.]?\w+\s*)+$/)===null){
-        return [];
-    }
-    // Init
-    if(!context){
-        context=[this.document];
-    }
-    if(context.length===undefined){
-        context=[context];
-    }
-    var nodes;
-    // Define a replacement getElementsByClassName function for IE<9
-    var getNodesByClassName=function(name,context){
+
+(function(window,document){
+
+    /*
+        Select DOM nodes
+
+        Parameters
+            string selectors        : CSS selectors
+            array, object contexts  : context nodes
+
+        Return
+            array                   : found nodes
+    */
+    window.nut=function(selectors,contexts){
+        // No selectors or contains forbidden chars
+        if(!selectors.match(/^[#.\w\s]+$/)){
+            return [];
+        }
+        // Format
+        if(!contexts){
+            contexts=[this.document];
+        }
+        if(contexts.length===undefined){
+            contexts=[contexts];
+        }
+        // Init vars
+        var nodes=[],
+            elements,
+            nodelist,
+            node,
+            re_selectors=/\s+/,
+            re_tokens=/^([#.])?(.+)/,
+            tokens,
+            i=0,
+            j,k,l;
+        // Browse contexts
+        while(context=contexts[i++]){
+            // Set context
+            nodes.push(context);
+            // Browse selectors
+            selectors=selectors.split(re_selectors);
+            j=0;
+            while(selector=selectors[j++]){
+                // Split selector
+                tokens=selector.match(re_tokens);
+                // No tokens? Goodbye!
+                if(!tokens){
+                    return [];
+                }
+                // Apply current selector to all current nodes
+                elements=[];
+                k=0;
+                while(node=nodes[k++]){
+                    switch(tokens[1]){
+                        // Get elements by class
+                        case '.':
+                            nodelist=node.getElementsByClassName?
+                                     node.getElementsByClassName(tokens[2]):
+                                     getNodesByClassName(tokens[2],node);
+                            break;
+                        // Get elements by id
+                        case '#':
+                            nodelist=[document.getElementById(tokens[2])];
+                            break;
+                        // Get elements by tag
+                        default:
+                            nodelist=node.getElementsByTagName(tokens[2]);
+                    }
+                    // Push new elements
+                    l=0;
+                    while(node=nodelist[l++]){
+                        elements.push(node);
+                    }
+                }
+                // Update nodes
+                nodes=elements;
+            }
+        }
+        return nodes;
+    };
+
+    /*
+        Define a getElementsByClassName replacement function for IE<9
+
+        Parameters
+            string name     : class name
+            object context  : context node
+
+        Return
+            array           : found nodes
+    */
+    function getNodesByClassName(name,context){
         // Init vars
         var nodes=[],
             j=context.childNodes.length,
             classname;
-        // Browe children
+        // Browse children
         for(var i=0;i<j;++i){
             if(classname=context.childNodes[i].className){
                 // Match the class
@@ -43,51 +119,5 @@ this.nut=function(selectors,context){
         }
         return nodes;
     };
-    // Browse context
-    for(var i in context){
-        // Try querySelectorAll method
-        /*if(context[i].querySelectorAll){
-            return context[i].querySelectorAll(selectors);
-        }*/
-        // Set context
-        nodes=[context[i]];
-        // Browse selectors
-        selectors=selectors.split(/\s+/);
-        for(var j in selectors){
-            // Split selector
-            var elements=[],
-                nodelist,
-                tokens=selectors[j].match(/^([#.])?(.+)/);
-            // No tokens? Goodbye!
-            if(!tokens){
-                return [];
-            }
-            // Apply current selector to all current nodes
-            for(var k in nodes){
-                switch(tokens[1]){
-                    // Get elements by class
-                    case '.':
-                        nodelist=nodes[k].getElementsByClassName?
-                                 nodes[k].getElementsByClassName(tokens[2]):
-                                 getNodesByClassName(tokens[2],nodes[k]);
-                        break;
-                    // Get elements by id
-                    case '#':
-                        nodelist=[this.document.getElementById(tokens[2])];
-                        break;
-                    // Get elements by tag
-                    default:
-                        nodelist=nodes[k].getElementsByTagName(tokens[2]);
-                }
-                // Append new elements
-                var m=nodelist.length;
-                for(var l=0;l<m;++l){
-                    elements.push(nodelist[l]);
-                }
-            }
-            // Update nodes
-            nodes=elements;
-        }
-    }
-    return nodes;
-};
+
+})(this,this.document);

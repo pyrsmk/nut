@@ -1,7 +1,10 @@
-Nut 0.1.2
+Nut 0.1.3
 =========
 
-Nut is a concise query selector engine that just allows you to do extremely simple queries. These queries only accept ids, classes and tags with optional hierarchy.
+Nut is a concise query selector engine that just allows you to do extremely simple queries.
+
+Syntax
+------
 
 Here's it can handle:
 
@@ -30,4 +33,7 @@ Of course, queries can have a context:
     // Get nodes from the #foo context
     nut('.bar p',nut('#foo'));
 
-And that's all you need to know ;)
+Performance
+-----------
+
+Nut, is faster than `querySelectorAll` (take a look at the benchmark) and then faster than all selector engines. But, nut doesn't implement request caching to avoid unnecessary code additions and performance loss: the user can easily keep a request and pass it as a context to another request.

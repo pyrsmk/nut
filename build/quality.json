@@ -1,6 +1,7 @@
 {
     "JAVASCRIPT":{
-        "unit":["../unit/runner.js"]
+        "unit":["../unit/runner.js"],
+        "benchmark":["../benchmark/runner.js"]
     },
     "JSHINT_OPTS":{
         "boss"          : true,

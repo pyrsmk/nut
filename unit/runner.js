@@ -9,10 +9,10 @@ domReady(function(){
             // #foo
             nodes=nut('#foo');
             ok(nodes.length==1 && (typeof nodes[0]=='object'),'#foo');
-            // #foo .bar
+            // .bar from #foo context
             nodes=nut('.bar',nut('#foo'));
             ok(nodes.length==1 && (typeof nodes[0]=='object'),'.bar from #foo context');
-            // #foo .bar
+            // .bar from #foo context
             nodes=nut('.bar',nut('#foo')[0]);
             ok(nodes.length==1 && (typeof nodes[0]=='object'),'.bar from #foo context');
             // #foo .bar span
