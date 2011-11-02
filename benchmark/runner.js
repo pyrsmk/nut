@@ -45,14 +45,6 @@ domReady(function(){
         nut('#foo .bar span');
     })
 
-    // #foo span,table tr
-    .add('[querySelectorAll: #foo span,table tr]',function(){
-        document.querySelectorAll('#foo span,table tr');
-    })
-    .add('[nut: #foo span,table tr]',function(){
-        nut('#foo span,table tr');
-    })
-
     // Display results
     .on('complete',function(){
         var j=this.length;

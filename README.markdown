@@ -1,5 +1,5 @@
-Nut 0.4
-=======
+Nut 0.1.5
+=========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
 
@@ -11,7 +11,6 @@ Here's it can handle:
     section
     .bar p
     section #foo .bar p
-    div , #foo , .bar
 
 And here's it can't:
 
@@ -19,6 +18,7 @@ And here's it can't:
     div *
     div > p
     div + p
+    div,#foo,.bar
 
 So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. But, let's dig in:
 

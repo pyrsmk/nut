@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version : 0.4
+    Version : 0.1.5
     Author  : Aurélien Delogu (dev@dreamysource.fr)
     URL     : https://github.com/pyrsmk/nut
     License : MIT
@@ -35,90 +35,122 @@
         }
         return nodes;
     }
-
+    
+    /*
+        Get nodes from an id selector
+        
+        Parameters
+            string selector : a selector
+            context         : a context
+        
+        Return
+            object          : nodes
+    */
+    function getNodesFromIdSelector(selector,context){
+        return [document.getElementById(selector)];
+    }
+    
+    /*
+        Get nodes from a class selector
+        
+        Parameters
+            string selector : a selector
+            context         : a context
+        
+        Return
+            object          : nodes
+    */
+    function getNodesFromClassSelector(selector,context){
+        if(context.getElementsByClassName){
+            return context.getElementsByClassName(selector);
+        }
+        else{
+            return getNodesByClassName(selector,context);
+        }
+    }
+    
+    /*
+        Get nodes from a tag selector
+        
+        Parameters
+            string selector : a selector
+            context         : a context
+        
+        Return
+            object          : nodes
+    */
+    function getNodesFromTagSelector(selector,context){
+        return context.getElementsByTagName(selector);
+    }
+    
     /*
         Select DOM nodes
 
         Parameters
-            string expressions      : CSS selectors
+            string selectors        : CSS selectors
             array, object contexts  : contextual nodes
 
         Return
             array                   : found nodes
     */
-    window.nut=function(expressions,contexts){
+    window.nut=function(selectors,contexts){
         // Format
-        expressions=expressions.split(',');
+        selectors=selectors.split(/\s+/);
         if(!contexts){
-            contexts=[this.document];
+            contexts=[document];
         }
-        if(contexts.length===undefined){
+        else if(contexts.length===undefined){
             contexts=[contexts];
         }
         // Init vars
         var nodes=[],
-            context,
-            expression,
-            local_context,
             local_contexts,
             future_local_contexts,
             selector,
-            selectors,
-            tokens,
             elements,
-            element,
-            i=-1,
-            j,k,l,m;
+            i=contexts.length,
+            j,k,l,m,
+            getNodesFromSelector;
         // Evaluate expressions for each global context
-        while(context=contexts[++i]){
+        while(i){
+            // Init local context
+            local_contexts=[contexts[--i]];
+            // Evaluate selectors
             j=-1;
-            while(expression=expressions[++j]){
-                // Init local context
-                local_contexts=[context];
-                // Evaluate expression
-                selectors=expression.split(/\s+/);
-                k=-1;
-                while((selector=selectors[++k])!==undefined){
-                    // Drop empty selectors
-                    if(!selector){
-                        continue;
+            k=selectors.length;
+            while(++j<k){
+                // Drop empty selectors
+                if(selector=selectors[j]){
+                    // Id selector
+                    if(selector[0]=='#'){
+                        selector=selector.substr(1);
+                        getNodesFromSelector=getNodesFromIdSelector;
                     }
-                    // Tokenize current selector
-                    tokens=selector.match(/^([#.])?(.+)/);
+                    // Class selector
+                    else if(selector[0]=='.'){
+                        selector=selector.substr(1);
+                        getNodesFromSelector=getNodesFromClassSelector;
+                    }
+                    // Tag selector
+                    else{
+                        getNodesFromSelector=getNodesFromTagSelector;
+                    }
                     // Evaluate current selector for each local context
                     future_local_contexts=[];
-                    l=-1;
-                    while(local_context=local_contexts[++l]){
-                        switch(tokens[1]){
-                            // Get elements by class
-                            case '.':
-                                if(local_context.getElementsByClassName){
-                                    elements=local_context.getElementsByClassName(tokens[2]);
-                                }
-                                else{
-                                    elements=getNodesByClassName(tokens[2],local_context);
-                                }
-                                break;
-                            // Get elements by id
-                            case '#':
-                                elements=[document.getElementById(tokens[2])];
-                                break;
-                            // Get elements by tag
-                            default:
-                                elements=local_context.getElementsByTagName(tokens[2]);
-                        }
-                        // Add new nodes to the future local context list
-                        m=-1;
-                        while(element=elements[++m]){
-                            future_local_contexts.push(element);
+                    l=local_contexts.length;
+                    while(l){
+                        elements=getNodesFromSelector(selector,local_contexts[--l]);
+                        m=elements.length;
+                        while(m){
+                            future_local_contexts.push(elements[--m]);
                         }
                     }
                     // Set new local contexts
                     local_contexts=future_local_contexts;
                 }
-                // Append new nodes
-                nodes=nodes.concat(local_contexts);
             }
+            // Append new nodes
+            nodes=nodes.concat(local_contexts);
         }
         return nodes;
     };
