@@ -1,0 +1,13 @@
+{
+    "name"          : "nut",
+    "description"   : "The concise CSS selector engine",
+    "version"       : "0.1.5",
+    "author"        : "Aurélien Delogu <pyrsmk@dreamysource.fr> (http://dreamysource.fr)",
+    "repository"    : {
+        "type"  : "git",
+        "url"   : "https://github.com/pyrsmk/nut.git"
+    },
+    "main"          : "nut.js",
+    "ender"         : "ender.js",
+    "keywords"      : ["ender","css","selector","engine"]
+}
