@@ -1,20 +1,20 @@
 /*
     nut, the concise CSS selector engine
 
-    Version : 0.1.5
+    Version : 0.1.6
     Author  : Aurélien Delogu (dev@dreamysource.fr)
     URL     : https://github.com/pyrsmk/nut
     License : MIT
 */
 
-!function(definition){
-    if(typeof this.module!='undefined'){
-        this.module.exports=definition;
+!function(nut){
+    if(typeof module!='undefined'){
+        module.exports=nut;
     }
     else{
-        this.nut=definition;
+        this.nut=nut;
     }
-}(function(document){
+}(function(){
 
     /*
         Get nodes corresponding to a class name (for IE<9)
@@ -116,7 +116,7 @@
             selector,
             elements,
             i=-1,
-            j,k,l,m,n,
+            j,k,l,m,n,o,
             getNodesFromSelector;
         // Prepare selectors
         selectors=selectors.split(',');
@@ -155,9 +155,10 @@
                         m=local_contexts.length;
                         while(m){
                             elements=getNodesFromSelector(selector,local_contexts[--m]);
-                            n=elements.length;
-                            while(n){
-                                future_local_contexts.push(elements[--n]);
+                            n=-1;
+                            o=elements.length;
+                            while(++n<o){
+                                future_local_contexts.push(elements[n]);
                             }
                         }
                         // Set new local contexts
