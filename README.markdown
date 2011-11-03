@@ -11,6 +11,7 @@ Here's it can handle:
     section
     .bar p
     section #foo .bar p
+    div,#foo,.bar
 
 And here's it can't:
 
@@ -18,14 +19,13 @@ And here's it can't:
     div *
     div > p
     div + p
-    div,#foo,.bar
 
 So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. But, let's dig in:
 
     // Return an array
     nut('#foo');
 
-Of course, queries can have a context:
+Of course, queries can have a context (an array, a NodeList, or a node):
 
     // Get nodes from the #foo context
     nut('.bar p',nut('#foo'));
