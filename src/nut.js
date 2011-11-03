@@ -172,4 +172,4 @@
         return nodes;
     };
 
-}(this.document));
+}());
