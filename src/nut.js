@@ -8,13 +8,13 @@
 */
 
 !function(definition){
-    if(typeof module!='undefined'){
-        module.exports=definition();
+    if(typeof this.module!='undefined'){
+        this.module.exports=definition;
     }
     else{
-        this.nut=definition();
+        this.nut=definition;
     }
-}(function(){
+}(function(document){
 
     /*
         Get nodes corresponding to a class name (for IE<9)
@@ -171,4 +171,4 @@
         return nodes;
     };
 
-});
+}(this.document));
