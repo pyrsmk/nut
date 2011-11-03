@@ -1,20 +1,20 @@
 /*
     nut, the concise CSS selector engine
 
-    Version : 0.1.6
+    Version : 0.1.7
     Author  : Aurélien Delogu (dev@dreamysource.fr)
     URL     : https://github.com/pyrsmk/nut
     License : MIT
 */
 
-!function(nut){
+!function(name,obj){
     if(typeof module!='undefined'){
-        module.exports=nut;
+        module.exports=obj;
     }
     else{
-        this.nut=nut;
+        this[name]=obj;
     }
-}(function(){
+}('nut',function(){
 
     /*
         Get nodes corresponding to a class name (for IE<9)
