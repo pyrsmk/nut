@@ -7,7 +7,14 @@
     License : MIT
 */
 
-(function(window,document){
+!function(definition){
+    if(typeof module!='undefined'){
+        module.exports=definition();
+    }
+    else{
+        this.nut=definition();
+    }
+}(function(){
 
     /*
         Get nodes corresponding to a class name (for IE<9)
@@ -93,9 +100,8 @@
         Return
             array                   : found nodes
     */
-    window.nut=function(selectors,contexts){
-        // Format
-        selectors=selectors.split(/\s+/);
+    return function(selectors,contexts){
+        // Format contexts
         if(!contexts){
             contexts=[document];
         }
@@ -104,55 +110,65 @@
         }
         // Init vars
         var nodes=[],
+            context,
             local_contexts,
             future_local_contexts,
             selector,
             elements,
-            i=contexts.length,
-            j,k,l,m,
+            i=-1,
+            j,k,l,m,n,
             getNodesFromSelector;
-        // Evaluate expressions for each global context
-        while(i){
-            // Init local context
-            local_contexts=[contexts[--i]];
-            // Evaluate selectors
-            j=-1;
-            k=selectors.length;
-            while(++j<k){
-                // Drop empty selectors
-                if(selector=selectors[j]){
-                    // Id selector
-                    if(selector[0]=='#'){
-                        selector=selector.substr(1);
-                        getNodesFromSelector=getNodesFromIdSelector;
-                    }
-                    // Class selector
-                    else if(selector[0]=='.'){
-                        selector=selector.substr(1);
-                        getNodesFromSelector=getNodesFromClassSelector;
-                    }
-                    // Tag selector
-                    else{
-                        getNodesFromSelector=getNodesFromTagSelector;
-                    }
-                    // Evaluate current selector for each local context
-                    future_local_contexts=[];
-                    l=local_contexts.length;
-                    while(l){
-                        elements=getNodesFromSelector(selector,local_contexts[--l]);
-                        m=elements.length;
-                        while(m){
-                            future_local_contexts.push(elements[--m]);
+        // Prepare selectors
+        selectors=selectors.split(',');
+        n=-1;
+        while(selector=selectors[++n]){
+            selectors[n]=selector.split(/\s+/);
+        }
+        // Evaluate selectors for each global context
+        while(context=contexts[++i]){
+            j=selectors.length;
+            while(j){
+                // Init local context
+                local_contexts=[context];
+                // Evaluate selectors
+                k=-1;
+                l=selectors[--j].length;
+                while(++k<l){
+                    // Drop empty selectors
+                    if(selector=selectors[j][k]){
+                        // Id selector
+                        if(selector[0]=='#'){
+                            selector=selector.substr(1);
+                            getNodesFromSelector=getNodesFromIdSelector;
                         }
+                        // Class selector
+                        else if(selector[0]=='.'){
+                            selector=selector.substr(1);
+                            getNodesFromSelector=getNodesFromClassSelector;
+                        }
+                        // Tag selector
+                        else{
+                            getNodesFromSelector=getNodesFromTagSelector;
+                        }
+                        // Evaluate current selector for each local context
+                        future_local_contexts=[];
+                        m=local_contexts.length;
+                        while(m){
+                            elements=getNodesFromSelector(selector,local_contexts[--m]);
+                            n=elements.length;
+                            while(n){
+                                future_local_contexts.push(elements[--n]);
+                            }
+                        }
+                        // Set new local contexts
+                        local_contexts=future_local_contexts;
                     }
-                    // Set new local contexts
-                    local_contexts=future_local_contexts;
                 }
+                // Append new nodes
+                nodes=nodes.concat(local_contexts);
             }
-            // Append new nodes
-            nodes=nodes.concat(local_contexts);
         }
         return nodes;
     };
 
-})(this,this.document);
+});
