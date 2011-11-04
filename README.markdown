@@ -3,7 +3,26 @@ Nut 0.1.7
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
 
+Oh jeez, another engine?!
+-------------------------
+
+Yeah, right, there's a lot of CSS selector engine, but just a few of them are really smalls.
+
 First of all, nut is, most of the time, faster than `querySelectorAll` (take a look at the benchmark) and then faster than all selector engines. But please note that nut doesn't implement request caching (to avoid unnecessary code additions and performance loss) because the user can easily keep a request and pass it as a context to another request. This is, nut aims to be minimal to have a very tiny footprint and extreme velocity based on the observation that much of CSS requests could be kept as simple as we can since javascript can handle a lot of things.
+
+Nut is different from the other tiny engines, here's what they are:
+
+- [QSA](https://github.com/cowboy/javascript-library-boilerplate) wraps `querySelectorAll`
+- Svetlo (from [picoCSS](https://github.com/vladocar/picoCSS)) is also a wrapper around `querySelectorAll`
+- [Quewery](https://github.com/danheberden/Quewery) handles ids, tags and `querySelectorAll` as fallback
+
+But:
+
+- `querySelectorAll` is not supported by all browsers, so supporting it with no fallback is inconsistent
+- picoCSS uses `Array.prototype.slice.call` for casting `NodeList` objects as arrays, that is inconsistent too (but this framework doesn't seem to be made for cross-browser support, so I don't tell it to throw him the stone)
+- QSA, picoCSS and Quewery don't support contexts
+
+Then, nut try to be fully reliable and as fast as possible by removing the most CSS syntax without becoming unhandy. There's another very interesting engine: [micro-selector](https://github.com/fabiomcosta/micro-selector). It supports another CSS syntax and is extensible.
 
 Use
 ---
