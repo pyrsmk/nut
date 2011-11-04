@@ -26,8 +26,8 @@ domReady(function(){
             ok(verifyNodes(nut('.bar',nut('#foo')[0]),2),'.bar from #foo context (node)');
             // #foo .bar span
             ok(verifyNodes(nut('#foo .bar span'),2),'#foo .bar span');
-            // #foo .bar span,p
-            ok(verifyNodes(nut(' #foo  .bar  span , p '),5),'#foo .bar span , p');
+            // #foo .bar * , p
+            ok(verifyNodes(nut(' #foo  .bar  * , p '),5),'#foo .bar * , p');
         });
 
         test('Non acceptable selectors',1,function(){

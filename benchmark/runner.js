@@ -45,12 +45,12 @@ domReady(function(){
         nut('#foo .bar span');
     })
     
-    // #foo .bar span , p
-    .add('[querySelectorAll: #foo .bar span , p]',function(){
-        document.querySelectorAll('#foo .bar span , p');
+    // #foo .bar * , p
+    .add('[querySelectorAll: #foo .bar * , p]',function(){
+        document.querySelectorAll('#foo .bar * , p');
     })
-    .add('[nut: #foo .bar span , p]',function(){
-        nut('#foo .bar span , p');
+    .add('[nut: #foo .bar * , p]',function(){
+        nut('#foo .bar * , p');
     })
 
     // Display results

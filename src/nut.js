@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version : 0.1.7
+    Version : 0.1.8
     Author  : Aurélien Delogu (dev@dreamysource.fr)
     URL     : https://github.com/pyrsmk/nut
     License : MIT
@@ -77,6 +77,29 @@
     }
     
     /*
+        Get all nodes
+        
+        Parameters
+            string selector : a selector
+            context         : a context
+        
+        Return
+            object          : nodes
+    */
+    function getAllNodes(selector,context){
+        var node,
+            nodes=[],
+            i=-1;
+        // Reduce
+        while(node=context.childNodes[++i]){
+            if(node.tagName){
+                nodes.push(node);
+            }
+        }
+        return nodes;
+    }
+    
+    /*
         Get nodes from a tag selector
         
         Parameters
@@ -136,17 +159,21 @@
                 while(++k<l){
                     // Drop empty selectors
                     if(selector=selectors[j][k]){
-                        // Id selector
+                        // Id
                         if(selector[0]=='#'){
                             selector=selector.substr(1);
                             getNodesFromSelector=getNodesFromIdSelector;
                         }
-                        // Class selector
+                        // Class
                         else if(selector[0]=='.'){
                             selector=selector.substr(1);
                             getNodesFromSelector=getNodesFromClassSelector;
                         }
-                        // Tag selector
+                        // Joker
+                        else if(selector=='*'){
+                            getNodesFromSelector=getAllNodes;
+                        }
+                        // Tag
                         else{
                             getNodesFromSelector=getNodesFromTagSelector;
                         }
