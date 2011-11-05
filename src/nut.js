@@ -32,7 +32,9 @@
         // Reduce
         if(node){
             do{
-                node.nodeType==1 && nodes.push(node);
+                if(node.nodeType==1){
+                    nodes.push(node);
+                }
             }
             while(node=node.nextSibling);
         }
