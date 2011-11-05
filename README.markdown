@@ -57,7 +57,7 @@ And that's all you need to know ;)
 Ender integration
 -----------------
 
-Nut is compatible with ender and supports some useful syntax.
+Nut is compatible with [ender](http://ender.no.de) and supports some useful syntax.
 
 Selecting nodes, as usually:
 
@@ -73,3 +73,8 @@ Creating new elements:
 
     // elements var has 2 nodes
     var elements=$('<b>foo</b><i>bar</i>');
+
+License
+-------
+
+Nut is published under the MIT license.
