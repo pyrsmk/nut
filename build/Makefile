@@ -1,7 +1,0 @@
-smoosh:
-	@smoosh run project.json
-	@uglifyjs -nc ../src/nut.js > ../nut.min.js
-
-install:
-	@npm install smoosh -g
-	@npm install uglify-js -g

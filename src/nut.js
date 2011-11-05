@@ -1,13 +1,13 @@
 /*
     nut, the concise CSS selector engine
 
-    Version : 0.1.8
-    Author  : Aurélien Delogu (dev@dreamysource.fr)
-    URL     : https://github.com/pyrsmk/nut
-    License : MIT
+    Version:    0.1.9
+    Author:     Aurélien Delogu (dev@dreamysource.fr)
+    Homepage:   https://github.com/pyrsmk/nut
+    License:    MIT
 */
 
-!function(name,obj){
+(function(name,obj){
     if(typeof module!='undefined'){
         module.exports=obj;
     }
@@ -199,4 +199,4 @@
         return nodes;
     };
 
-}());
+}()));
