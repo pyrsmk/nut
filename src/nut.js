@@ -15,7 +15,44 @@
         this[name]=obj;
     }
 }('nut',function(){
-
+    
+    /*
+        Get all nodes
+        
+        Parameters
+            string selector : a selector
+            context         : a context
+        
+        Return
+            object          : nodes
+    */
+    function getAllNodes(selector,context){
+        var node,
+            nodes=[],
+            i=-1;
+        // Reduce
+        while(node=context.childNodes[++i]){
+            if(node.nodeType==1){
+                nodes.push(node);
+            }
+        }
+        return nodes;
+    }
+    
+    /*
+        Get nodes from an id selector
+        
+        Parameters
+            string selector : a selector
+            context         : a context
+        
+        Return
+            object          : nodes
+    */
+    function getNodesFromIdSelector(selector,context){
+        return [document.getElementById(selector)];
+    }
+    
     /*
         Get nodes corresponding to a class name (for IE<9)
 
@@ -44,20 +81,6 @@
     }
     
     /*
-        Get nodes from an id selector
-        
-        Parameters
-            string selector : a selector
-            context         : a context
-        
-        Return
-            object          : nodes
-    */
-    function getNodesFromIdSelector(selector,context){
-        return [document.getElementById(selector)];
-    }
-    
-    /*
         Get nodes from a class selector
         
         Parameters
@@ -74,29 +97,6 @@
         else{
             return getNodesByClassName(selector,context);
         }
-    }
-    
-    /*
-        Get all nodes
-        
-        Parameters
-            string selector : a selector
-            context         : a context
-        
-        Return
-            object          : nodes
-    */
-    function getAllNodes(selector,context){
-        var node,
-            nodes=[],
-            i=-1;
-        // Reduce
-        while(node=context.childNodes[++i]){
-            if(node.tagName){
-                nodes.push(node);
-            }
-        }
-        return nodes;
     }
     
     /*
