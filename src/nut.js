@@ -27,20 +27,20 @@
             object          : nodes
     */
     function getAllNodes(selector,context){
-        var node,
-            nodes=[],
-            i=-1;
+        var node=context.firstChild,
+            nodes=[];
         // Reduce
-        while(node=context.childNodes[++i]){
-            if(node.nodeType==1){
-                nodes.push(node);
+        if(node){
+            do{
+                node.nodeType==1 && nodes.push(node);
             }
+            while(node=node.nextSibling);
         }
         return nodes;
     }
     
     /*
-        Get nodes from an id selector
+        Get id node
         
         Parameters
             string selector : a selector
@@ -49,7 +49,7 @@
         Return
             object          : nodes
     */
-    function getNodesFromIdSelector(selector,context){
+    function getNodeFromIdSelector(selector,context){
         return [document.getElementById(selector)];
     }
     
@@ -65,17 +65,24 @@
     */
     function getNodesByClassName(name,context){
         // Init vars
-        var nodes=[],
-            child,
-            i=-1;
+        var node=context.firstChild,
+            nodes=[],
+            elements;
         // Browse children
-        while(child=context.childNodes[++i]){
-            // Match the class
-            if(child.className && child.className.match('\\b'+name+'\\b')){
-                nodes.push(child);
+        if(node){
+            do{
+                if(node.nodeType==1){
+                    // Match the class
+                    if(node.className && node.className.match('\\b'+name+'\\b')){
+                        nodes.push(node);
+                    }
+                    // Get nodes from node's children
+                    if((elements=getNodesByClassName(name,node)).length){
+                        nodes=nodes.concat(elements);
+                    }
+                }
             }
-            // Get nodes from child's children
-            nodes=nodes.concat(getNodesByClassName(name,child));
+            while(node=node.nextSibling);
         }
         return nodes;
     }
@@ -91,7 +98,7 @@
             object          : nodes
     */
     function getNodesFromClassSelector(selector,context){
-        if(context.getElementsByClassName){
+        if(!context.getElementsByClassName){
             return context.getElementsByClassName(selector);
         }
         else{
@@ -162,7 +169,7 @@
                         // Id
                         if(selector[0]=='#'){
                             selector=selector.substr(1);
-                            getNodesFromSelector=getNodesFromIdSelector;
+                            getNodesFromSelector=getNodeFromIdSelector;
                         }
                         // Class
                         else if(selector[0]=='.'){
