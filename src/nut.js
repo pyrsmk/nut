@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.1.9
+    Version     : 0.1.10
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
@@ -26,7 +26,7 @@
         Return
             object          : nodes
     */
-    function getAllNodes(selector,context){
+    var getAllNodes=function(selector,context){
         var node=context.firstChild,
             nodes=[];
         // Reduce
@@ -39,7 +39,7 @@
             while(node=node.nextSibling);
         }
         return nodes;
-    }
+    },
     
     /*
         Get id node
@@ -51,9 +51,9 @@
         Return
             object          : nodes
     */
-    function getNodeFromIdSelector(selector,context){
+    getNodeFromIdSelector=function(selector,context){
         return [document.getElementById(selector)];
-    }
+    },
     
     /*
         Get nodes corresponding to a class name (for IE<9)
@@ -65,7 +65,7 @@
         Return
             array           : found nodes
     */
-    function getNodesByClassName(name,context){
+    getNodesByClassName=function(name,context){
         // Init vars
         var node=context.firstChild,
             nodes=[],
@@ -87,7 +87,7 @@
             while(node=node.nextSibling);
         }
         return nodes;
-    }
+    },
     
     /*
         Get nodes from a class selector
@@ -99,14 +99,14 @@
         Return
             object          : nodes
     */
-    function getNodesFromClassSelector(selector,context){
-        if(!context.getElementsByClassName){
+    getNodesFromClassSelector=function(selector,context){
+        if(context.getElementsByClassName){
             return context.getElementsByClassName(selector);
         }
         else{
             return getNodesByClassName(selector,context);
         }
-    }
+    },
     
     /*
         Get nodes from a tag selector
@@ -118,9 +118,9 @@
         Return
             object          : nodes
     */
-    function getNodesFromTagSelector(selector,context){
+    getNodesFromTagSelector=function(selector,context){
         return context.getElementsByTagName(selector);
-    }
+    };
     
     /*
         Select DOM nodes

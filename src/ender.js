@@ -8,10 +8,11 @@
         // New element
         if(selectors.match(/^\s*</)){
             var tag=selectors.match(/^\s*<\s*([a-z]+)/i)[1],
+                table='table',
                 nodeMap={
-                    thead:      'table',
-                    tbody:      'table',
-                    tfoot:      'table',
+                    thead:      table,
+                    tbody:      table,
+                    tfoot:      table,
                     tr:         'tbody',
                     th:         'tr',
                     td:         'tr',
