@@ -5,8 +5,12 @@
     var nut=require('nut');
 
     $._select=function(selectors,contexts){
+        // Nodes
+        if(typeof selectors!='string'){
+            return selectors;
+        }
         // New element
-        if(selectors.match(/^\s*</)){
+        else if(selectors.match(/^\s*</)){
             var tag=selectors.match(/^\s*<\s*([a-z]+)/i)[1],
                 table='table',
                 nodeMap={
@@ -32,12 +36,8 @@
             return elements;
         }
         // Selectors
-        else if(typeof selectors=='string'){
-            return nut(selectors,contexts);
-        }
-        // Nodes
         else{
-            return selectors;
+            return nut(selectors,contexts);
         }
     };
 
