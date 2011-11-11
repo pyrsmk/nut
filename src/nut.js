@@ -1,20 +1,25 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.1.10
+    Version     : 0.1.11
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
 */
 
-(function(name,def){
+(function(def){
     if(typeof module!='undefined'){
         module.exports=def;
     }
     else{
-        this[name]=def;
+        this.nut=def;
     }
-}('nut',function(){
+}(function(){
+    
+    var firstChild='firstChild',
+        nextSibling='nextSibling',
+        getElementsByClassName='getElementsByClassName',
+        length='length',
     
     /*
         Get all nodes
@@ -26,8 +31,8 @@
         Return
             object          : nodes
     */
-    var getAllNodes=function(selector,context){
-        var node=context.firstChild,
+    getAllNodes=function(selector,context){
+        var node=context[firstChild],
             nodes=[];
         // Reduce
         if(node){
@@ -36,7 +41,7 @@
                     nodes.push(node);
                 }
             }
-            while(node=node.nextSibling);
+            while(node=node[nextSibling]);
         }
         return nodes;
     },
@@ -67,7 +72,7 @@
     */
     getNodesByClassName=function(name,context){
         // Init vars
-        var node=context.firstChild,
+        var node=context[firstChild],
             nodes=[],
             elements;
         // Browse children
@@ -79,12 +84,12 @@
                         nodes.push(node);
                     }
                     // Get nodes from node's children
-                    if((elements=getNodesByClassName(name,node)).length){
+                    if((elements=getNodesByClassName(name,node))[length]){
                         nodes=nodes.concat(elements);
                     }
                 }
             }
-            while(node=node.nextSibling);
+            while(node=node[nextSibling]);
         }
         return nodes;
     },
@@ -100,8 +105,8 @@
             object          : nodes
     */
     getNodesFromClassSelector=function(selector,context){
-        if(context.getElementsByClassName){
-            return context.getElementsByClassName(selector);
+        if(context[getElementsByClassName]){
+            return context[getElementsByClassName](selector);
         }
         else{
             return getNodesByClassName(selector,context);
@@ -137,7 +142,7 @@
         if(!contexts){
             contexts=[document];
         }
-        else if(contexts.length===undefined){
+        else if(contexts[length]===undefined){
             contexts=[contexts];
         }
         // Init vars
@@ -158,23 +163,23 @@
         }
         // Evaluate selectors for each global context
         while(context=contexts[++i]){
-            j=selectors.length;
+            j=selectors[length];
             while(j){
                 // Init local context
                 local_contexts=[context];
                 // Evaluate selectors
                 k=-1;
-                l=selectors[--j].length;
+                l=selectors[--j][length];
                 while(++k<l){
                     // Drop empty selectors
                     if(selector=selectors[j][k]){
                         // Id
-                        if(selector[0]=='#'){
+                        if(selector.charAt(0)=='#'){
                             selector=selector.substr(1);
                             getNodesFromSelector=getNodeFromIdSelector;
                         }
                         // Class
-                        else if(selector[0]=='.'){
+                        else if(selector.charAt(0)=='.'){
                             selector=selector.substr(1);
                             getNodesFromSelector=getNodesFromClassSelector;
                         }
@@ -188,11 +193,11 @@
                         }
                         // Evaluate current selector for each local context
                         future_local_contexts=[];
-                        m=local_contexts.length;
+                        m=local_contexts[length];
                         while(m){
                             elements=getNodesFromSelector(selector,local_contexts[--m]);
                             n=-1;
-                            o=elements.length;
+                            o=elements[length];
                             while(++n<o){
                                 future_local_contexts.push(elements[n]);
                             }

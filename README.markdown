@@ -1,4 +1,4 @@
-Nut 0.1.10
+Nut 0.1.11
 ==========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.

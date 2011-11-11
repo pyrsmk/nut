@@ -97,20 +97,25 @@
   /*
       nut, the concise CSS selector engine
   
-      Version:    0.1.9
-      Author:     Aurélien Delogu (dev@dreamysource.fr)
-      Homepage:   https://github.com/pyrsmk/nut
-      License:    MIT
+      Version     : 0.1.11
+      Author      : Aurélien Delogu (dev@dreamysource.fr)
+      Homepage    : https://github.com/pyrsmk/nut
+      License     : MIT
   */
   
-  (function(name,obj){
+  (function(def){
       if(typeof module!='undefined'){
-          module.exports=obj;
+          module.exports=def;
       }
       else{
-          this[name]=obj;
+          this.nut=def;
       }
-  }('nut',function(){
+  }(function(){
+      
+      var firstChild='firstChild',
+          nextSibling='nextSibling',
+          getElementsByClassName='getElementsByClassName',
+          length='length',
       
       /*
           Get all nodes
@@ -122,18 +127,20 @@
           Return
               object          : nodes
       */
-      function getAllNodes(selector,context){
-          var node=context.firstChild,
+      getAllNodes=function(selector,context){
+          var node=context[firstChild],
               nodes=[];
           // Reduce
           if(node){
               do{
-                  node.nodeType==1 && nodes.push(node);
+                  if(node.nodeType==1){
+                      nodes.push(node);
+                  }
               }
-              while(node=node.nextSibling);
+              while(node=node[nextSibling]);
           }
           return nodes;
-      }
+      },
       
       /*
           Get id node
@@ -145,9 +152,9 @@
           Return
               object          : nodes
       */
-      function getNodeFromIdSelector(selector,context){
+      getNodeFromIdSelector=function(selector,context){
           return [document.getElementById(selector)];
-      }
+      },
       
       /*
           Get nodes corresponding to a class name (for IE<9)
@@ -159,9 +166,9 @@
           Return
               array           : found nodes
       */
-      function getNodesByClassName(name,context){
+      getNodesByClassName=function(name,context){
           // Init vars
-          var node=context.firstChild,
+          var node=context[firstChild],
               nodes=[],
               elements;
           // Browse children
@@ -173,15 +180,15 @@
                           nodes.push(node);
                       }
                       // Get nodes from node's children
-                      if((elements=getNodesByClassName(name,node)).length){
+                      if((elements=getNodesByClassName(name,node))[length]){
                           nodes=nodes.concat(elements);
                       }
                   }
               }
-              while(node=node.nextSibling);
+              while(node=node[nextSibling]);
           }
           return nodes;
-      }
+      },
       
       /*
           Get nodes from a class selector
@@ -193,14 +200,14 @@
           Return
               object          : nodes
       */
-      function getNodesFromClassSelector(selector,context){
-          if(!context.getElementsByClassName){
-              return context.getElementsByClassName(selector);
+      getNodesFromClassSelector=function(selector,context){
+          if(context[getElementsByClassName]){
+              return context[getElementsByClassName](selector);
           }
           else{
               return getNodesByClassName(selector,context);
           }
-      }
+      },
       
       /*
           Get nodes from a tag selector
@@ -212,9 +219,9 @@
           Return
               object          : nodes
       */
-      function getNodesFromTagSelector(selector,context){
+      getNodesFromTagSelector=function(selector,context){
           return context.getElementsByTagName(selector);
-      }
+      };
       
       /*
           Select DOM nodes
@@ -231,7 +238,7 @@
           if(!contexts){
               contexts=[document];
           }
-          else if(contexts.length===undefined){
+          else if(contexts[length]===undefined){
               contexts=[contexts];
           }
           // Init vars
@@ -252,23 +259,23 @@
           }
           // Evaluate selectors for each global context
           while(context=contexts[++i]){
-              j=selectors.length;
+              j=selectors[length];
               while(j){
                   // Init local context
                   local_contexts=[context];
                   // Evaluate selectors
                   k=-1;
-                  l=selectors[--j].length;
+                  l=selectors[--j][length];
                   while(++k<l){
                       // Drop empty selectors
                       if(selector=selectors[j][k]){
                           // Id
-                          if(selector[0]=='#'){
+                          if(selector.charAt(0)=='#'){
                               selector=selector.substr(1);
                               getNodesFromSelector=getNodeFromIdSelector;
                           }
                           // Class
-                          else if(selector[0]=='.'){
+                          else if(selector.charAt(0)=='.'){
                               selector=selector.substr(1);
                               getNodesFromSelector=getNodesFromClassSelector;
                           }
@@ -282,11 +289,11 @@
                           }
                           // Evaluate current selector for each local context
                           future_local_contexts=[];
-                          m=local_contexts.length;
+                          m=local_contexts[length];
                           while(m){
                               elements=getNodesFromSelector(selector,local_contexts[--m]);
                               n=-1;
-                              o=elements.length;
+                              o=elements[length];
                               while(++n<o){
                                   future_local_contexts.push(elements[n]);
                               }
@@ -313,13 +320,18 @@
       var nut=require('nut');
   
       $._select=function(selectors,contexts){
+          // Nodes
+          if(typeof selectors!='string'){
+              return selectors;
+          }
           // New element
-          if(selectors.match(/^\s*</)){
+          else if(selectors.match(/^\s*</)){
               var tag=selectors.match(/^\s*<\s*([a-z]+)/i)[1],
+                  table='table',
                   nodeMap={
-                      thead:      'table',
-                      tbody:      'table',
-                      tfoot:      'table',
+                      thead:      table,
+                      tbody:      table,
+                      tfoot:      table,
                       tr:         'tbody',
                       th:         'tr',
                       td:         'tr',
@@ -339,12 +351,8 @@
               return elements;
           }
           // Selectors
-          else if(typeof selectors=='string'){
-              return nut(selectors,contexts);
-          }
-          // Nodes
           else{
-              return selectors;
+              return nut(selectors,contexts);
           }
       };
   
