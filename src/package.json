@@ -1,7 +1,7 @@
 {
     "name"          : "nut",
     "description"   : "The concise CSS selector engine",
-    "version"       : "0.1.11",
+    "version"       : "0.1.12",
     "author"        : "Aurélien Delogu <pyrsmk@dreamysource.fr> (http://dreamysource.fr)",
     "repository"    : {
         "type"  : "git",
