@@ -35,6 +35,12 @@ domReady(function(){
             ok(nut('#foo > p').length===0,'#foo > p');
         });
         
+        test('Doesn\'t exist',3,function(){
+            ok(nut('foobar').length===0,'foobar');
+            ok(nut('#foobar').length===0,'#foobar');
+            ok(nut('.foobar').length===0,'.foobar');
+        });
+        
         test('Ender integration',3,function(){
             ok(verifyNodes($('<b>foo</b><i>bar</i>'),2),'Create 2 elements');
             ok(verifyNodes($('.bar',$('#foo')),2),'Get elements from a specific context');

@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.1.15
+    Version     : 0.1.16
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
@@ -58,7 +58,7 @@
     */
     getNodesFromIdSelector=function(selector,context){
         var node=document.getElementById(selector);
-        if(node===null){
+        if(!node){
             return [];
         }
         else{
@@ -152,12 +152,12 @@
             contexts=[contexts];
         }
         // Init vars
-        var nodes=[],
-            context,
+        var context,
             local_contexts,
             future_local_contexts,
             selector,
             elements,
+            nodes,
             i=-1,
             j,k,l,m,n,o,
             getNodesFromSelector;
