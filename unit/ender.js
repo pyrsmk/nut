@@ -97,7 +97,7 @@
   /*
       nut, the concise CSS selector engine
   
-      Version     : 0.1.14
+      Version     : 0.1.15
       Author      : Aurélien Delogu (dev@dreamysource.fr)
       Homepage    : https://github.com/pyrsmk/nut
       License     : MIT
@@ -152,7 +152,7 @@
           Return
               object          : nodes
       */
-      getNodeFromIdSelector=function(selector,context){
+      getNodesFromIdSelector=function(selector,context){
           var node=document.getElementById(selector);
           if(node===null){
               return [];
@@ -278,7 +278,7 @@
                           // Id
                           if(selector.charAt(0)=='#'){
                               selector=selector.substr(1);
-                              getNodesFromSelector=getNodeFromIdSelector;
+                              getNodesFromSelector=getNodesFromIdSelector;
                           }
                           // Class
                           else if(selector.charAt(0)=='.'){
