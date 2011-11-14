@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.1.16
+    Version     : 0.1.17
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
@@ -157,7 +157,7 @@
             future_local_contexts,
             selector,
             elements,
-            nodes,
+            nodes=[],
             i=-1,
             j,k,l,m,n,o,
             getNodesFromSelector;
