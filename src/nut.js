@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.1.18
+    Version     : 0.1.19
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
@@ -200,9 +200,9 @@
                         }
                         // Evaluate current selector for each local context
                         future_local_contexts=[];
-                        m=local_contexts[length];
-                        while(m){
-                            elements=getNodesFromSelector(selector,local_contexts[--m]);
+                        m=-1;
+                        while(local_contexts[++m]){
+                            elements=getNodesFromSelector(selector,local_contexts[m]);
                             n=-1;
                             o=elements[length];
                             while(++n<o){
