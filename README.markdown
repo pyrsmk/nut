@@ -34,10 +34,10 @@ Here's it can handle:
     .bar p
     section #foo .bar p
     div,#foo,.bar
-    div *
 
 And here's it can't:
 
+    div *
     div#foo div.bar
     div > p
     div + p
