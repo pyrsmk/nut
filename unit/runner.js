@@ -16,7 +16,7 @@ domReady(function(){
             return true;
         };
         
-        test('Acceptable selectors',6,function(){
+        test('Acceptable selectors',5,function(){
             // p
             ok(verifyNodes(nut('p'),3),'p');
             // #foo
@@ -27,8 +27,6 @@ domReady(function(){
             ok(verifyNodes(nut('.bar',nut('#foo')[0]),2),'.bar from #foo context (node)');
             // #foo .bar span
             ok(verifyNodes(nut('#foo .bar span'),2),'#foo .bar span');
-            // #foo .bar * , p
-            ok(verifyNodes(nut(' #foo  .bar  * , p '),5),'#foo .bar * , p');
         });
 
         test('Non acceptable selectors',1,function(){

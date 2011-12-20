@@ -1,4 +1,4 @@
-Nut 0.1.19
+Nut 0.1.20
 ==========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
@@ -42,7 +42,7 @@ And here's it can't:
     div > p
     div + p
 
-So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. But, let's dig in:
+So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. But, let's dig in it:
 
     // Return an array
     nut('#foo');

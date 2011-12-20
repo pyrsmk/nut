@@ -44,14 +44,6 @@ domReady(function(){
     .add('[nut: #foo .bar span]',function(){
         nut('#foo .bar span');
     })
-    
-    // #foo .bar * , p
-    .add('[querySelectorAll: #foo .bar * , p]',function(){
-        document.querySelectorAll('#foo .bar * , p');
-    })
-    .add('[nut: #foo .bar * , p]',function(){
-        nut('#foo .bar * , p');
-    })
 
     // Display results
     .on('complete',function(){

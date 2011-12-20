@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.1.19
+    Version     : 0.1.20
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
@@ -21,31 +21,6 @@
         nextSibling='nextSibling',
         getElementsByClassName='getElementsByClassName',
         length='length',
-    
-    /*
-        Get all nodes
-        
-        Parameters
-            string selector : a selector
-            context         : a context
-        
-        Return
-            object          : nodes
-    */
-    getAllNodes=function(selector,context){
-        var node=context[firstChild],
-            nodes=[];
-        // Reduce
-        if(node){
-            do{
-                if(node.nodeType==1){
-                    nodes.push(node);
-                }
-            }
-            while(node=node[nextSibling]);
-        }
-        return nodes;
-    },
     
     /*
         Get id node
@@ -189,10 +164,6 @@
                         else if(selector.charAt(0)=='.'){
                             selector=selector.substr(1);
                             getNodesFromSelector=getNodesFromClassSelector;
-                        }
-                        // Joker
-                        else if(selector=='*'){
-                            getNodesFromSelector=getAllNodes;
                         }
                         // Tag
                         else{
