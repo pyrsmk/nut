@@ -1,4 +1,4 @@
-Nut 0.1.20
+Nut 0.1.21
 ==========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
@@ -32,17 +32,19 @@ Here's it can handle:
     #foo
     section
     .bar p
-    section #foo .bar p
-    div,#foo,.bar
+    [name="baz"]
+    section #foo .bar p [name="baz"]
+    div,#foo,.bar,[name="baz"]
 
 And here's it can't:
 
     div *
-    div#foo div.bar
+    div#foo div.bar input[name="baz"]
+    [type=text]
     div > p
     div + p
 
-So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. But, let's dig in it:
+So, all pseudo-classes, attribute selectors (except for the name attribute) and other advanced syntax are not allowed. But, let's dig in it:
 
     // Return an array
     nut('#foo');
