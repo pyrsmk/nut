@@ -1,7 +1,7 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.1.20
+    Version     : 0.1.21
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
@@ -20,7 +20,11 @@
         firstChild='firstChild',
         nextSibling='nextSibling',
         getElementsByClassName='getElementsByClassName',
+        getElementsByName='getElementsByName',
         length='length',
+        DOCUMENT_POSITION_CONTAINED_BY=16,
+        contains='contains',
+        compareDocumentPosition='compareDocumentPosition',
     
     /*
         Get id node
@@ -107,6 +111,42 @@
     */
     getNodesFromTagSelector=function(selector,context){
         return context.getElementsByTagName(selector);
+    },
+    
+    /*
+        Get nodes from a name attribute selector
+        
+        Parameters
+            string selector : a selector
+            context         : a context
+        
+        Return
+            object          : nodes
+    */
+    getNodesFromNameSelector=function(selector,context){
+        var candidates, i, leni, elements = [];
+        if(typeof context[getElementsByName] !== "undefined"){
+            candidates=context[getElementsByName](selector);
+            for(i=0, leni = candidates.length; i<leni; i++){
+                if(candidates[i].getAttribute("name") === selector){
+                    elements.push(candidates[i]);
+                }
+            }
+        }
+        else{
+            candidates=doc[getElementsByName](selector)
+            for(i=0, leni=candidates.length; i<leni; i++){
+                //Firefox < 9.0 doesn't support contains()
+                if (context[contains]
+                    ? context[contains](candidates[i])
+                    : (context[compareDocumentPosition](candidates[i]) & DOCUMENT_POSITION_CONTAINED_BY)) {
+                    if(candidates[i].getAttribute("name") === selector){
+                        elements.push(candidates[i]);
+                    }
+                }
+            }
+        }
+        return elements;
     };
     
     /*
@@ -164,6 +204,11 @@
                         else if(selector.charAt(0)=='.'){
                             selector=selector.substr(1);
                             getNodesFromSelector=getNodesFromClassSelector;
+                        }
+                        // Name
+                        else if(selector.indexOf('[name=')==0){
+                            selector=selector.slice(7, -2);
+                            getNodesFromSelector=getNodesFromNameSelector;
                         }
                         // Tag
                         else{
