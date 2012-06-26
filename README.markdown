@@ -6,7 +6,7 @@ Nut is a concise query selector engine that just allows you to do extremely simp
 Quickly
 -------
 
-Hey, the [names](https://github.com/pyrsmk/nut/tree/names) branch supports `name` attributes! Thanks to @Crydust ;)
+Hey, the [names](https://github.com/pyrsmk/nut/tree/names) branch supports `name` attributes! Thanks to [Crydust](https://github.com/Crydust) ;)
 
 Oh jeez, another engine?!
 -------------------------
