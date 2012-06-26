@@ -3,6 +3,11 @@ Nut 0.1.20
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
 
+Quickly
+-------
+
+Hey, the [names](https://github.com/pyrsmk/nut/tree/names) branch supports `name` attributes!
+
 Oh jeez, another engine?!
 -------------------------
 
