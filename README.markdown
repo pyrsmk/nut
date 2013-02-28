@@ -1,5 +1,5 @@
-Nut 0.1.20
-==========
+Nut 0.2.0
+=========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
 
@@ -52,7 +52,7 @@ So, all pseudo-classes, attribute selectors and other advanced syntax are not al
     // Return an array
     nut('#foo');
 
-Of course, queries can have a context (an array, a NodeList, or a node):
+Of course, queries can have a context (one node):
 
     // Get nodes from the #foo context
     nut('.bar p',nut('#foo'));

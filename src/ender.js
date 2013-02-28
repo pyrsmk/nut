@@ -1,6 +1,7 @@
-// inspired from https://github.com/ded/qwery/blob/master/src/ender.js
+var nut=this.nut;
+this.nut=undefined;
 
-$._select=function(selectors,contexts){
+$._select=function(selectors,context){
     // Nodes
     if(typeof selectors!='string'){
         return selectors;
@@ -33,6 +34,6 @@ $._select=function(selectors,contexts){
     }
     // Selectors
     else{
-        return require('nut')(selectors,contexts);
+        return nut(selectors,context);
     }
 };
