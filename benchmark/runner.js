@@ -34,7 +34,7 @@ domReady(function(){
         }
     })
     .add('[nut: .bar from #foo context]',function(){
-        nut('.bar',nut('#foo'));
+        nut('.bar',nut('#foo')[0]);
     })
 
     // #foo .bar span
