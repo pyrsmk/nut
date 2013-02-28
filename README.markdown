@@ -6,7 +6,7 @@ Nut is a concise query selector engine that just allows you to do extremely simp
 Notes
 -----
 
-0.2.0: removed array support for the context parameter
+0.2.0: removed array support for the context parameter, you can still pass an array but it will only take the first field
 
 Quickly
 -------
@@ -60,7 +60,7 @@ So, all pseudo-classes, attribute selectors and other advanced syntax are not al
 Of course, queries can have a context (one node):
 
     // Get nodes from the #foo context
-    nut('.bar p',nut('#foo')[0]);
+    nut('.bar p',nut('#foo'));
 
 And that's all you need to know ;)
 

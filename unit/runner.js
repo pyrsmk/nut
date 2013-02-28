@@ -16,13 +16,15 @@ domReady(function(){
             return true;
         };
 
-        test('Acceptable selectors',4,function(){
+        test('Acceptable selectors',5,function(){
             // p
             ok(verifyNodes(nut('p'),3),'p');
             // #foo
             ok(verifyNodes(nut('#foo'),1),'#foo');
             // .bar from #foo context (node)
-            ok(verifyNodes(nut('.bar',nut('#foo')[0]),2),'.bar from #foo context');
+            ok(verifyNodes(nut('.bar',nut('#foo')[0]),2),'.bar from #foo context (node)');
+            // .bar from #foo context (array)
+            ok(verifyNodes(nut('.bar',nut('#foo')),2),'.bar from #foo context (array)');
             // #foo .bar span
             ok(verifyNodes(nut('#foo .bar span'),2),'#foo .bar span');
         });

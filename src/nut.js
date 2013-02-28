@@ -117,6 +117,9 @@ window.nut=function(){
         if(!context){
             context=doc;
         }
+        if(typeof context=='object' && context.pop){
+            context=context[0];
+        }
         // Init vars
         var local_contexts,
             future_local_contexts,
