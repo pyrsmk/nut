@@ -7,7 +7,7 @@
         "type"  : "git",
         "url"   : "https://github.com/pyrsmk/nut.git"
     },
-    "main"          : "nut.js",
+    "main"          : "../src/nut.js",
     "ender"         : "ender.js",
     "keywords"      : ["ender","css","selector","engine"]
 }
