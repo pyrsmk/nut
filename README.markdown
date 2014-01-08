@@ -55,13 +55,17 @@ And here's it can't:
 
 So, all pseudo-classes, attribute selectors and other advanced syntax are not allowed. But, let's dig in it:
 
-    // Return an array
-    nut('#foo');
+```javascript
+// Return an array
+nut('#foo');
+```
 
 Of course, queries can have a context (one node):
 
-    // Get nodes from the #foo context
-    nut('.bar p',nut('#foo'));
+```javascript
+// Get nodes from the #foo context
+nut('.bar p',nut('#foo'));
+```
 
 And that's all you need to know ;)
 
@@ -72,18 +76,24 @@ Nut is compatible with [ender](http://ender.no.de) and supports some useful synt
 
 Selecting nodes, as usually:
 
-    $('#foo');
-    $('.bar p',$('#foo'));
+```javascript
+$('#foo');
+$('.bar p',$('#foo'));
+```
 
 Selecting existing nodes:
 
-    var nodes=$('.bar');
-    $(nodes);
+```javascript
+var nodes=$('.bar');
+$(nodes);
+```
 
 Creating new elements:
 
-    // elements var has 2 nodes
-    var elements=$('<b>foo</b><i>bar</i>');
+```javascript
+// elements var has 2 nodes
+var elements=$('<b>foo</b><i>bar</i>');
+```
 
 License
 -------
