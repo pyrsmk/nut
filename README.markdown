@@ -1,4 +1,4 @@
-Nut 0.2.0
+Nut 0.3.0
 =========
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
@@ -7,6 +7,7 @@ Notes
 -----
 
 0.2.0: removed array support for the context parameter, you can still pass an array but it will only take the first field
+0.3.0: add module pattern support (RequireJS)
 
 Quickly
 -------
