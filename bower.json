@@ -1,6 +1,6 @@
 {
   "name": "pyrsmk/nut",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "src/nut.js",
   "description": "The concise CSS selector engine",
   "license": "MIT",

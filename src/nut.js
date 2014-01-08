@@ -1,14 +1,17 @@
 /*
     nut, the concise CSS selector engine
 
-    Version     : 0.3.0
+    Version     : 0.3.1
     Author      : Aurélien Delogu (dev@dreamysource.fr)
     Homepage    : https://github.com/pyrsmk/nut
     License     : MIT
 */
 
 (function(def){
-    if(typeof module!='undefined'){
+    if(typeof define=='function'){
+		define(def);
+	}
+    else if(typeof module!='undefined'){
         module.exports=def;
     }
     else{
