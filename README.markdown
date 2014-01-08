@@ -6,8 +6,8 @@ Nut is a concise query selector engine that just allows you to do extremely simp
 Notes
 -----
 
-0.2.0: removed array support for the context parameter, you can still pass an array but it will only take the first field
-0.3.0: add module pattern support (RequireJS)
+- 0.2.0: removed array support for the context parameter, you can still pass an array but it will only take the first field
+- 0.3.0: add module pattern support (RequireJS)
 
 Quickly
 -------
