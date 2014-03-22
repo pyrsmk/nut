@@ -1,12 +1,21 @@
 {
-  "name": "pyrsmk/nut",
+  "name": "nut",
   "version": "0.3.1",
-  "main": "src/nut.js",
   "description": "The concise CSS selector engine",
-  "license": "MIT",
-  "author": "Aurélien Delogu",
+  "main": "src/nut.js",
   "repository": {
-      "type": "git"
-    , "url": "https://github.com/pyrsmk/nut.git"
-  }
+    "type": "git",
+    "url": "git://github.com/pyrsmk/nut.git"
+  },
+  "keywords": [
+    "css",
+    "selector",
+    "engine"
+  ],
+  "authors": ["AurÃ©lien Delogu"],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pyrsmk/nut/issues"
+  },
+  "homepage": "http://dreamysource.fr/product/nut"
 }
