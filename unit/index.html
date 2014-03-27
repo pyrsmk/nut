@@ -1,28 +1,49 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>nut - unit testing</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    </head>
-    <body>
-        <div id="tests"></div>
-        <script src="../lib/consolelog.min.js" type="text/javascript"></script>
-        <script src="../lib/ready-20110918.min.js" type="text/javascript"></script>
-        <script src="../lib/sink-20110925.js" type="text/javascript"></script>
-        <script src="../src/nut.js" type="text/javascript"></script>
-        <script src="ender.js" type="text/javascript"></script>
-        <script src="runner.js" type="text/javascript"></script>
-        <div id="foo">
+	<head>
+		<title>nut</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="node_modules/qunitjs/qunit/qunit.css">
+		<script src="consolelog.min.js"></script>
+		<script src="node_modules/domready/ready.min.js"></script>
+		<script src="node_modules/qunitjs/qunit/qunit.js"></script>
+		<script src="../src/nut.js"></script>
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+        <div id="foo" style="visibility:hidden">
             <p></p>
             <p class="bar">
-                <span class="bar"></span>
-                <span></span>
+                <span>pwet</span>
+                <span>pwet</span>
             </p>
             <p></p>
+            <p class="bar">
+            	<span>pwet</span>
+            	<strong>pwet</strong>
+            </p>
         </div>
-        <table>
-            <tr></tr>
-            <tr></tr>
-        </table>
-    </body>
+		<script>
+			domready(function(){
+
+				test("Acceptable selectors",function(){
+					expect(5);
+					ok(nut('#foo').length==1,'#foo');
+					ok(nut('p',nut('#foo')).length==4,'p');
+					ok(nut('.bar',nut('#foo')[0]).length==2,"'.bar' from '#foo' context");
+					ok(nut('span',nut('.bar')).length==2,"'span' from '.bar' contexts");
+					ok(nut('#foo .bar span').length==3,'#foo .bar span');
+				});
+
+				test("Does not exist",function(){
+					expect(3);
+					ok(nut('foobar').length===0,'foobar');
+					ok(nut('#foobar').length===0,'#foobar');
+					ok(nut('.foobar').length===0,'.foobar');
+				});
+
+			});
+		</script>
+	</body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>nut</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="node_modules/qunitjs/qunit/qunit.css">
+		<script src="consolelog.min.js"></script>
+		<script src="node_modules/domready/ready.min.js"></script>
+		<script src="node_modules/qunitjs/qunit/qunit.js"></script>
+		<script src="../src/nut.js"></script>
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+        <div id="foo">
+            <p></p>
+            <p class="bar">
+                <span class="bar"></span>
+                <span></span>
+            </p>
+            <p></p>
+            <p class="bar">
+            	<span></span>
+            	<div></div>
+            </p>
+        </div>
+        <table>
+            <tr></tr>
+            <tr></tr>
+        </table>
+		<script>
+			domready(function(){
+
+				test("Ender",function(){
+					expect(3);
+					ok($('#foo').length==1,'#foo');
+					ok($('.bar span',$('#foo')).length==1,"'.bar span' from '#foo' context");
+					ok($($('.bar')).length==2,'.bar');
+				});
+
+			});
+		</script>
+	</body>
+</html>

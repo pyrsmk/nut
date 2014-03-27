@@ -5,17 +5,17 @@
 		Aurélien Delogu (dev@dreamysource.fr)
 */
 
-(function(def){
-	if(typeof define=='function'){
-		define(def);
+(function(name,context,definition){
+	if(typeof module!='undefined' && module.exports){
+		module.exports=definition();
 	}
-	else if(typeof module!='undefined'){
-		module.exports=def;
+	else if(typeof define=='function' && define.amd){
+		define(definition);
 	}
 	else{
-		this.nut=def;
+		context[name]=definition();
 	}
-}(function(){
+}('nut',this,function(){
 
 	var doc=document,
 		firstChild='firstChild',
@@ -114,11 +114,11 @@
 		Select DOM nodes
 
 		Parameters
-			String selectors        : CSS selectors
-			Array, Object context   : contextual node
+			String selectors : CSS selectors
+			Object context   : contextual node
 
 		Return
-			Array                   : found nodes
+			Array            : found nodes
 	*/
 	return function(selectors,context){
 		// Format
@@ -188,4 +188,4 @@
 		return nodes;
 	};
 
-}()));
+}));
