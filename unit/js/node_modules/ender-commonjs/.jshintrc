@@ -1,0 +1,61 @@
+{
+    "predef": ["ender"]
+  , "globals": [
+      "global"
+    , "require"
+    , "provide"
+    , "Module"
+    ]
+  , "white": true
+  , "indent": 2
+  , "maxdepth": 6
+  , "maxlen": 120
+  , "bitwise": false
+  , "camelcase": true
+  , "curly": false
+  , "eqeqeq": false
+  , "forin": false
+  , "immed": false
+  , "latedef": false
+  , "newcap": true
+  , "noarg": false
+  , "noempty": true
+  , "nonew": false
+  , "plusplus": false
+  , "quotmark": "single"
+  , "regexp": false
+  , "undef": true
+  , "unused": false
+  , "strict": false
+  , "trailing": true
+  , "asi": true
+  , "boss": true
+  , "eqnull": true
+  , "es5": false
+  , "esnext": true
+  , "evil": true
+  , "expr": true
+  , "funcscope": false
+  , "globalstrict": false
+  , "iterator": false
+  , "lastsemic": true
+  , "laxbreak": true
+  , "laxcomma": true
+  , "loopfunc": true
+  , "multistr": false
+  , "onecase": false
+  , "proto": false
+  , "regexdash": false
+  , "scripturl": true
+  , "smarttabs": true
+  , "shadow": false
+  , "sub": true
+  , "supernew": false
+  , "validthis": true
+  , "browser": true
+  , "nonstandard": true
+  , "nomen": false
+  , "onevar": false
+  , "passfail": false
+  , "devel": false
+}
