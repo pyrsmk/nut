@@ -3,6 +3,9 @@ $._select=function(selector,context){
 		return selector;
 	}
 	else{
+		if(context && context.length){
+			context=context[0];
+		}
 		return require('nut')(selector,context);
 	}
 };

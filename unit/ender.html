@@ -35,7 +35,7 @@
 				test("Ender",function(){
 					expect(3);
 					ok($('#foo').length==1,'#foo');
-					ok($('.bar span',$('#foo')[0]).length==3,"'.bar span' from '#foo' context");
+					ok($('.bar span',$('#foo')).length==3,"'.bar span' from '#foo' context");
 					ok($($('.bar')).length==3,'.bar');
 				});
 

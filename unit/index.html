@@ -28,11 +28,10 @@
 			domready(function(){
 
 				test("Acceptable selectors",function(){
-					expect(5);
+					expect(4);
 					ok(nut('#foo').length==1,'#foo');
-					ok(nut('p',nut('#foo')).length==4,'p');
+					ok(nut('p',nut('#foo')[0]).length==4,"'p' from '#foo' context");
 					ok(nut('.bar',nut('#foo')[0]).length==2,"'.bar' from '#foo' context");
-					ok(nut('span',nut('.bar')).length==2,"'span' from '.bar' contexts");
 					ok(nut('#foo .bar span').length==3,'#foo .bar span');
 				});
 
