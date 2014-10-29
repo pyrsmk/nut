@@ -1,6 +1,5 @@
 {
   "name": "nut",
-  "version": "0.4.1",
   "description": "The concise CSS selector engine",
   "main": "src/nut.js",
   "repository": {
