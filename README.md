@@ -3,6 +3,16 @@ nut 0.4.1
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
 
+Install
+-------
+
+You can pick the minified library or install it with :
+
+```
+bower install nut
+npm install nut --save-dev
+```
+
 Quickly
 -------
 

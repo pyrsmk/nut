@@ -18,5 +18,6 @@
     "url": "https://github.com/pyrsmk/nut/issues",
     "email": "dev@dreamysource.fr"
   },
-  "homepage": "http://dreamysource.fr/product/nut"
+  "homepage": "http://dreamysource.fr/product/nut",
+  "ignore": [".git"]
 }
