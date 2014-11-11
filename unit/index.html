@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="js/node_modules/qunitjs/qunit/qunit.css">
 		<script src="js/consolelog.min.js"></script>
-		<script src="js/node_modules/domready/ready.min.js"></script>
+		<script src="js/ondomready.min.js"></script>
 		<script src="js/node_modules/qunitjs/qunit/qunit.js"></script>
 		<script src="../src/nut.js"></script>
 	</head>
@@ -25,7 +25,7 @@
             </p>
         </div>
 		<script>
-			domready(function(){
+			onDomReady(function(){
 
 				test("Acceptable selectors",function(){
 					expect(4);
