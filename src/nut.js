@@ -1,9 +1,4 @@
-/*
-	nut, the concise CSS selector engine
-
-	Author
-		Aurélien Delogu (dev@dreamysource.fr)
-*/
+/* nut 0.4.1 (https://github.com/pyrsmk/nut) */
 
 ;(function(context,name,definition){
 	if(typeof module!='undefined' && module.exports){
