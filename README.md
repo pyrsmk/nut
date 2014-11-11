@@ -9,6 +9,7 @@ Install
 You can pick the minified library or install it with :
 
 ```
+jam install pyrsmk-nut
 bower install nut
 npm install nut --save-dev
 ```
