@@ -19,5 +19,13 @@
     "email": "dev@dreamysource.fr"
   },
   "homepage": "http://dreamysource.fr/product/nut",
-  "ignore": [".git"]
+  "ignore": [
+    ".git/",
+    ".gitignore",
+    "nodes_modules/",
+    "src/",
+    "tests/",
+    "Gruntfile.js",
+    "package.json"
+  ]
 }
