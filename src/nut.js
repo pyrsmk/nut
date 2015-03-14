@@ -1,4 +1,4 @@
-/*! nut 0.4.1 (https://github.com/pyrsmk/nut) */
+/*! nut 0.4.2 (https://github.com/pyrsmk/nut) */
 
 ;(function(context,name,definition){
 	if(typeof module!='undefined' && module.exports){
