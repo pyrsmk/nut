@@ -3,6 +3,8 @@ nut 0.4.2
 
 Nut is a concise query selector engine that just allows you to do extremely simple queries.
 
+Otherwise! Since `querySelector` is supported by [all current browsers](http://caniuse.com/#search=querySelector), please consider this library as __obsolete__.
+
 Install
 -------
 
